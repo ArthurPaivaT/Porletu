@@ -1,4 +1,4 @@
-package mongo
+package mongohandler
 
 import (
 	"context"
@@ -21,14 +21,14 @@ func Connect(resCh chan error) {
 		log.Fatal("Error loading .env file")
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	mongoUsr := os.Getenv("MONGOUSR")
 	mongoPwd := os.Getenv("MONGOPWD")
 	connURL := fmt.Sprintf("mongodb+srv://%s:%s@porletu-test.3mler.mongodb.net/?retryWrites=true&w=majority", mongoUsr, mongoPwd)
 
 	fmt.Println(connURL)
-	defer cancel()
 	MongoClient, err := mongo.Connect(ctx, options.Client().ApplyURI(connURL))
 
 	if err != nil {

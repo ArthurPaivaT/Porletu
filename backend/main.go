@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/ArthurPaivaT/Porletu/mongo"
+	"github.com/ArthurPaivaT/Porletu/mongohandler"
 	"github.com/ArthurPaivaT/Porletu/server"
 )
 
@@ -14,7 +14,7 @@ func main() {
 
 	go server.Start(serverErrChan)
 
-	go mongo.Connect(serverErrChan)
+	go mongohandler.Connect(serverErrChan)
 
 	serverErr := <-serverErrChan
 	fmt.Println(fmt.Errorf("Error Serving: %w", serverErr))
