@@ -18,7 +18,8 @@ func Start(resCh chan error) {
 		AllowedHeaders: []string{"Content-Type", "Origin", "Accept", "*"},
 	})
 	router := mux.NewRouter()
-	router.Handle("/getuser", corsWrapper.Handler(http.HandlerFunc(handlers.GetDevInfo))).Methods("GET")
+
+	router.Handle("/register", corsWrapper.Handler(http.HandlerFunc(handlers.CreateUser))).Methods("POST")
 
 	fmt.Println("Listening on Port :1212")
 	err := http.ListenAndServe(":1212", router)

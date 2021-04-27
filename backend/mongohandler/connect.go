@@ -28,13 +28,15 @@ func Connect(resCh chan error) {
 	mongoPwd := os.Getenv("MONGOPWD")
 	connURL := fmt.Sprintf("mongodb+srv://%s:%s@porletu-test.3mler.mongodb.net/?retryWrites=true&w=majority", mongoUsr, mongoPwd)
 
-	fmt.Println(connURL)
 	MongoClient, err := mongo.Connect(ctx, options.Client().ApplyURI(connURL))
-
 	if err != nil {
 		resCh <- err
 	}
 
-	Database = MongoClient.Database("Main")
+	ctx, cancel = context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
 
+	fmt.Println("Connected to Mongo")
+
+	Database = MongoClient.Database("Main")
 }

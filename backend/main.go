@@ -8,12 +8,10 @@ import (
 )
 
 func main() {
-	fmt.Println("Starting Server...")
 
 	serverErrChan := make(chan error)
 
 	go server.Start(serverErrChan)
-
 	go mongohandler.Connect(serverErrChan)
 
 	serverErr := <-serverErrChan
