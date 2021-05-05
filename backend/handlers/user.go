@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/ArthurPaivaT/Porletu/mongohandler"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // validate tags are used to validate during mongohandler insert operation
@@ -26,19 +25,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	userid := r.Header["Userid"][0]
-
-	_, readErr := mongohandler.Read("Users", map[string]interface{}{"userid": userid})
-	if readErr != nil {
-		if readErr != mongo.ErrNoDocuments {
-			err := fmt.Errorf("Error checking if user already exists: %w", readErr)
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	} else {
-		err := fmt.Errorf("user already exists")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
 
 	var body []byte
 	r.Body.Read(body)
@@ -75,4 +61,22 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(responseJSON)
+}
+
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+
+	if len(r.Header["Userid"]) < 1 {
+		err := fmt.Errorf("Missing Userid header")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	userid := r.Header["Userid"][0]
+
+	deleteResult, err := mongohandler.Delete("Users", map[string]interface{}{"userid": userid})
+	if err != nil || deleteResult.DeletedCount < 1 {
+		err := fmt.Errorf("Error deleting user: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 }

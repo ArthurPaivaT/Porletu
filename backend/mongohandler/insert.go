@@ -2,6 +2,7 @@ package mongohandler
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/go-playground/validator"
@@ -13,6 +14,17 @@ func Insert(collectionName string, object interface{}) (*mongo.InsertOneResult, 
 	v := validator.New()
 	err := v.Struct(object)
 	if err != nil {
+		return nil, err
+	}
+
+	_, readErr := Read(collectionName, object)
+	if readErr != nil {
+		if readErr != mongo.ErrNoDocuments {
+			err := fmt.Errorf("Error checking if object already exists: %w", readErr)
+			return nil, err
+		}
+	} else {
+		err := fmt.Errorf("object already exists")
 		return nil, err
 	}
 

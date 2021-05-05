@@ -20,6 +20,7 @@ func Start(resCh chan error) {
 	router := mux.NewRouter()
 
 	router.Handle("/register", corsWrapper.Handler(http.HandlerFunc(handlers.CreateUser))).Methods("POST")
+	router.Handle("/deleteUser", corsWrapper.Handler(http.HandlerFunc(handlers.DeleteUser))).Methods("POST")
 
 	fmt.Println("Listening on Port :1212")
 	err := http.ListenAndServe(":1212", router)
