@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./UserCard.css";
-
-import axios from "axios";
+import api from "../../services/api";
 
 class UserCard extends Component {
   state = {
@@ -9,12 +8,24 @@ class UserCard extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://127.0.0.1:1212/getuser").then((res) => {
-      const user = res.data;
-      console.log(res.data);
-      this.setState({ user });
-      console.log(this.state);
-    });
+    console.log("oi");
+    api
+      .get("/user", {
+        headers: { Userid: "1234" },
+      })
+      .then((res) => {
+        const user = res.data;
+        console.log("SDUASIDU");
+        console.log(res.data);
+        this.setState({ user });
+        console.log(this.state);
+      })
+      .catch((error) => {
+        console.log("ALOU");
+
+        console.log(error);
+      });
+    console.log("ioi");
   }
 
   render() {
