@@ -1,0 +1,59 @@
+.signUpCard {
+  height: 35rem;
+  width: 25rem;
+  box-shadow: 0px 0px 15px 0px;
+  border-radius: 10px;
+}
+
+.cardHeader {
+  background-color: #036564;
+  height: 4rem;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e8ddcb;
+  font-family: "Overlock", cursive;
+  font-size: 15px;
+}
+
+.cardForm {
+  height: 31rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  font-family: "Overlock", cursive;
+  color: #000066;
+}
+
+Input {
+  margin-top: 0.5rem;
+  height: 2.5rem;
+  width: 20rem;
+  border-radius: 8px;
+  border-color: #036564;
+  border-style: solid;
+  text-align: center;
+  font-size: 16px;
+  color: #000066;
+  outline: none;
+}
+
+button {
+  height: 3.6rem;
+  border-radius: 1.8rem;
+  width: 20rem;
+  background-color: #036564;
+  font-family: "Overlock", cursive;
+  font-size: 25px;
+  color: #e8ddcb;
+}

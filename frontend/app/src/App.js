@@ -1,13 +1,13 @@
 import "./App.css";
 import NavBar from "./Components/NavBar/NavBar";
-import UserCard from "./Components/UserCard/UserCard";
+import SignUpPage from "./Pages/SignUp/signup";
 
 function App() {
   return (
     <>
       <NavBar />
       <div className="appArea">
-        <UserCard className="UserCard" />
+        <SignUpPage className="UserCard" />
       </div>
     </>
   );
